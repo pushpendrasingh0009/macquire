@@ -1,0 +1,30 @@
+<nav>
+  <div class="nav-wrapper">
+    <a href="#" class="brand-logo center">
+      <i class="material-icons">cloud</i> App</a>
+    <ul id="nav-mobile" class="right hide-on-med-and-down">
+      <li>
+        <a (click)="Logout()">Logout</a>
+      </li>
+    </ul>
+  </div>
+</nav>
+<div class="row" *ngIf="userClaims">
+  <div class="col s12 m7">
+    <div class="card">
+      <div class="card-content">
+        <span>Username :{{userClaims.username}}</span>
+        <br>
+        <span>Email : {{userClaims.email}}</span>
+        <br>
+        <span>Full Name : {{userClaims.firstname}} {{userClaims.lastname}}</span>
+        <br>
+        <span>Authorities :     
+          <li *ngFor="let authoritie of userClaims.authorities">
+            {{ authoritie.authority }}
+          </li>
+        </span>
+      </div>
+    </div>
+  </div>
+</div>
