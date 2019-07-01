@@ -1,4 +1,4 @@
-package com.macquire.rmg.search.security;
+package com.macquire.rmg.auth.security;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.springframework.security.core.GrantedAuthority;

@@ -1,4 +1,4 @@
-package com.macquire.rmg.search.model;
+package com.macquire.rmg.auth.model;
 
 public class Person {
     private String name;

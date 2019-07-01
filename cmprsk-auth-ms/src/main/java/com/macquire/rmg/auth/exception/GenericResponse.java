@@ -1,4 +1,4 @@
-package com.macquire.rmg.search.exception;
+package com.macquire.rmg.auth.exception;
 
 public class GenericResponse
 {

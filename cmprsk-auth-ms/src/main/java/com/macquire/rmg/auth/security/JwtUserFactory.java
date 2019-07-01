@@ -1,10 +1,10 @@
-package com.macquire.rmg.search.security;
+package com.macquire.rmg.auth.security;
 
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 
-import com.macquire.rmg.search.model.entity.Authority;
-import com.macquire.rmg.search.model.entity.User;
+import com.macquire.rmg.auth.model.entity.Authority;
+import com.macquire.rmg.auth.model.entity.User;
 
 import java.util.List;
 import java.util.stream.Collectors;

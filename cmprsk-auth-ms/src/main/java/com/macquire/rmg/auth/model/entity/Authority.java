@@ -1,8 +1,8 @@
-package com.macquire.rmg.search.model.entity;
+package com.macquire.rmg.auth.model.entity;
 
 import javax.persistence.*;
 
-import com.macquire.rmg.search.model.AuthorityName;
+import com.macquire.rmg.auth.model.AuthorityName;
 
 import java.util.List;
 

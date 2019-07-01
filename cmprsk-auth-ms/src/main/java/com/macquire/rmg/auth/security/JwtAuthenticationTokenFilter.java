@@ -1,8 +1,11 @@
-package com.macquire.rmg.search.security;
+package com.macquire.rmg.auth.security;
 
 import java.io.IOException;
+import java.util.Arrays;
+import java.util.List;
 
 import javax.servlet.FilterChain;
+import javax.servlet.FilterConfig;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -35,7 +38,7 @@ public class JwtAuthenticationTokenFilter extends OncePerRequestFilter {
 
 	@Value("${jwt.header}")
 	private String tokenHeader;
-
+	
 	@Override
 	protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain chain) throws
 	ServletException, IOException {
@@ -44,8 +47,10 @@ public class JwtAuthenticationTokenFilter extends OncePerRequestFilter {
 		response.setHeader("Access-Control-Allow-Origin", "*");
 		response.setHeader("Access-Control-Allow-Headers", "*");
 
+		
+		logger.info("\n\n\n URL: " + request.getRequestURL());
 		String authToken = request.getHeader(this.tokenHeader);
-		if(!request.getRequestURL().toString().contains("api/auth") && !request.getRequestURL().toString().contains("user/register") && !request.getMethod().equals("OPTIONS")) {
+		if(!request.getRequestURL().toString().contains("swagger-ui.html") && !request.getRequestURL().toString().contains("api/auth") && !request.getRequestURL().toString().contains("user/register") && !request.getMethod().equals("OPTIONS")) {
 			if(null == authToken) {
 
 				throw new IOException("Token can not be left blank");

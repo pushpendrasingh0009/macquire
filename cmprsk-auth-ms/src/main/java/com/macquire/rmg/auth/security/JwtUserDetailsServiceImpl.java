@@ -1,4 +1,4 @@
-package com.macquire.rmg.search.security;
+package com.macquire.rmg.auth.security;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -6,8 +6,8 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
-import com.macquire.rmg.search.model.entity.User;
-import com.macquire.rmg.search.repository.UserRepository;
+import com.macquire.rmg.auth.model.entity.User;
+import com.macquire.rmg.auth.repository.UserRepository;
 
 
 /**

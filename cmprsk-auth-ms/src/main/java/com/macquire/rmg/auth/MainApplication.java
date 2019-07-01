@@ -1,4 +1,4 @@
-package com.macquire.rmg.search;
+package com.macquire.rmg.auth;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

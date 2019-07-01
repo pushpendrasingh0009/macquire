@@ -1,6 +1,7 @@
-package com.macquire.rmg.search.config;
+package com.macquire.rmg.auth.config;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
@@ -17,8 +18,8 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
-import com.macquire.rmg.search.security.JwtAuthenticationEntryPoint;
-import com.macquire.rmg.search.security.JwtAuthenticationTokenFilter;
+import com.macquire.rmg.auth.security.JwtAuthenticationEntryPoint;
+import com.macquire.rmg.auth.security.JwtAuthenticationTokenFilter;
 
 
 /**
@@ -55,6 +56,17 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
+    
+    @Bean
+    public FilterRegistrationBean<JwtAuthenticationTokenFilter> someFilterRegistration() throws Exception {
+
+        FilterRegistrationBean<JwtAuthenticationTokenFilter> registration = new FilterRegistrationBean<>();
+        registration.setFilter(authenticationTokenFilterBean());
+        registration.addUrlPatterns("/api/*");
+        registration.setName("JwtAuthenticationTokenFilter");
+        registration.setOrder(1);
+        return registration;
+    } 
 
     @Bean
     public JwtAuthenticationTokenFilter authenticationTokenFilterBean() throws Exception {
@@ -89,6 +101,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     public void configure(WebSecurity web) throws Exception {
         web.ignoring()
-                .antMatchers("/resources/**", "/static/**", "/css/**", "/js/**", "/images/**");
+                .antMatchers("/resources/**", "/static/**", "/css/**", "/js/**", "/images/**"
+                		,"/webjars/**", "**swagger-ui**", "/swagger-ui.html", "/swagger-resources/configuration/ui**"
+                		,"/swagger-resources**","/v2/api-docs**","/swagger-resources/configuration/security**");
     }
 }

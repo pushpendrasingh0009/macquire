@@ -1,4 +1,4 @@
-package com.macquire.rmg.search;
+package com.macquire.rmg.auth;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;

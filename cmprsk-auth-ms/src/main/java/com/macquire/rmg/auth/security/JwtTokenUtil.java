@@ -1,4 +1,4 @@
-package com.macquire.rmg.search.security;
+package com.macquire.rmg.auth.security;
 
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;

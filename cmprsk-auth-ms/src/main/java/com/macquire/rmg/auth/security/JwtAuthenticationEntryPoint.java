@@ -1,4 +1,4 @@
-package com.macquire.rmg.search.security;
+package com.macquire.rmg.auth.security;
 
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.web.AuthenticationEntryPoint;

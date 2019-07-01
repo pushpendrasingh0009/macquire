@@ -1,4 +1,4 @@
-package com.macquire.rmg.search.model.entity;
+package com.macquire.rmg.auth.model.entity;
 
 import java.util.Date;
 import java.util.List;
