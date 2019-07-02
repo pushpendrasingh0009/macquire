@@ -73,24 +73,24 @@ public class LoggerExceptionAspect {
 		return proceed;
 	}
 
-	@Around("execution(* com.macquire.rmg.auth.controller.AuthenticationRestController.getAuthenticatedUser(..))")
-	public Object aroundGetAuthenticatedUser(ProceedingJoinPoint joinPoint) throws Throwable {
-		HttpServletRequest request = (HttpServletRequest) joinPoint.getArgs()[0];
-		String token = request.getHeader(tokenHeader);
-		String username = jwtTokenUtil.getUsernameFromToken(token);
-		JwtUser user = (JwtUser) userDetailsService.loadUserByUsername(username);
-		logger.info("Fetching user from Token::" + user.getUsername() + " last token refresh::"
-				+ user.getLastPasswordResetDate());
-		Object proceed = null;
-		try {
-			proceed = joinPoint.proceed();
-		} catch (Throwable e) {
-			logger.error(e.getMessage());
-			throw new UserNotFoundException("User Not Found");
-		}
-		logger.info("User Fetched from token:: " + user.getUsername());
-		return proceed;
-	}
+//	@Around("execution(* com.macquire.rmg.auth.controller.AuthenticationRestController.getAuthenticatedUser(..))")
+//	public Object aroundGetAuthenticatedUser(ProceedingJoinPoint joinPoint) throws Throwable {
+//		HttpServletRequest request = (HttpServletRequest) joinPoint.getArgs()[0];
+//		String token = request.getHeader(tokenHeader);
+//		String username = jwtTokenUtil.getUsernameFromToken(token);
+//		JwtUser user = (JwtUser) userDetailsService.loadUserByUsername(username);
+//		logger.info("Fetching user from Token::" + user.getUsername() + " last token refresh::"
+//				+ user.getLastPasswordResetDate());
+//		Object proceed = null;
+//		try {
+//			proceed = joinPoint.proceed();
+//		} catch (Throwable e) {
+//			logger.error(e.getMessage());
+//			throw new UserNotFoundException("User Not Found");
+//		}
+//		logger.info("User Fetched from token:: " + user.getUsername());
+//		return proceed;
+//	}
 
 	@Around("execution(* com.macquire.rmg.auth.controller.AuthenticationRestController.registerUser(..))")
 	public Object aroundRegisterUser(ProceedingJoinPoint joinPoint) throws Throwable {

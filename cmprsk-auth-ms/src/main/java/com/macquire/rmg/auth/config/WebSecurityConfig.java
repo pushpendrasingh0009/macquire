@@ -1,7 +1,6 @@
 package com.macquire.rmg.auth.config;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
@@ -56,17 +55,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
-    
-    @Bean
-    public FilterRegistrationBean<JwtAuthenticationTokenFilter> someFilterRegistration() throws Exception {
-
-        FilterRegistrationBean<JwtAuthenticationTokenFilter> registration = new FilterRegistrationBean<>();
-        registration.setFilter(authenticationTokenFilterBean());
-        registration.addUrlPatterns("/api/*");
-        registration.setName("JwtAuthenticationTokenFilter");
-        registration.setOrder(1);
-        return registration;
-    } 
 
     @Bean
     public JwtAuthenticationTokenFilter authenticationTokenFilterBean() throws Exception {
