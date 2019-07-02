@@ -21,6 +21,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
+
+import com.macquire.rmg.auth.aop.Loggable;
 import com.macquire.rmg.auth.exception.GenericResponse;
 import com.macquire.rmg.auth.model.AuthorityName;
 import com.macquire.rmg.auth.model.entity.User;
@@ -63,6 +65,7 @@ public class AuthenticationRestController {
     
     private final Log logger = LogFactory.getLog(this.getClass());
 
+    @Loggable
     @RequestMapping(value = "${jwt.route.authentication.path}", method = RequestMethod.POST)
     public ResponseEntity<?> createAuthenticationToken(@RequestBody JwtAuthenticationRequest authenticationRequest) throws AuthenticationException {
     	logger.info("auth "+ authenticationRequest.getUsername()+ " pas: "+ authenticationRequest.getPassword());
@@ -83,6 +86,7 @@ public class AuthenticationRestController {
         return ResponseEntity.ok(new JwtAuthenticationResponse(token));
     }
 
+    @Loggable
     @RequestMapping(value = "${jwt.route.authentication.refresh}", method = RequestMethod.GET)
     public ResponseEntity<?> refreshAndGetAuthenticationToken(HttpServletRequest request) {
         String  token    = request.getHeader(tokenHeader);
@@ -97,6 +101,7 @@ public class AuthenticationRestController {
         }
     }
     
+    @Loggable
     @RequestMapping(value = "api/user", method = RequestMethod.GET)
     public JwtUser getAuthenticatedUser(HttpServletRequest request) {
         String authToken = request.getHeader(this.tokenHeader);
@@ -108,6 +113,7 @@ public class AuthenticationRestController {
         return user;
     }
     
+    @Loggable
     @RequestMapping(value = "api/user/register", method = RequestMethod.POST)
     public ResponseEntity<?> registerUser(@RequestBody User user) {
 
