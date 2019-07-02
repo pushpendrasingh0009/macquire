@@ -16,9 +16,9 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
-
 import com.macquire.rmg.auth.security.JwtAuthenticationEntryPoint;
-import com.macquire.rmg.auth.security.JwtAuthenticationTokenFilter;
+import com.macquire.rmg.auth.security.filter.CorsFilter;
+import com.macquire.rmg.auth.security.filter.AuthenticationTokenFilter;
 
 
 /**
@@ -57,8 +57,14 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     }
 
     @Bean
-    public JwtAuthenticationTokenFilter authenticationTokenFilterBean() throws Exception {
-        return new JwtAuthenticationTokenFilter();
+    CorsFilter corsFilter() {
+        CorsFilter filter = new CorsFilter();
+        return filter;
+    }
+    
+    @Bean
+    public AuthenticationTokenFilter authenticationTokenFilterBean() throws Exception {
+        return new AuthenticationTokenFilter();
     }
 
     @Override
@@ -78,8 +84,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/api/auth/**","/api/user/register/**").permitAll()
                 .anyRequest().authenticated();
 
-        // Custom JWT based security filter
-        httpSecurity
+        // Custom JWT based security filterUsernamePasswordAuthenticationFilter
+        httpSecurity.addFilterBefore(corsFilter(), UsernamePasswordAuthenticationFilter.class)
                 .addFilterBefore(authenticationTokenFilterBean(), UsernamePasswordAuthenticationFilter.class);
 
         // disable page caching

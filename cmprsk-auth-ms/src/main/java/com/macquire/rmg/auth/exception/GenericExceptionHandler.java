@@ -1,5 +1,6 @@
 package com.macquire.rmg.auth.exception;
 
+import org.hibernate.service.spi.ServiceException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -19,7 +20,7 @@ public class GenericExceptionHandler {
 		return new ResponseEntity<>(ExceptionCodes.getExceptionCode(ex.getMessage()), HttpStatus.NOT_FOUND);
 	}
 
-	@ExceptionHandler(Exception.class)
+	@ExceptionHandler({Exception.class, ServiceException.class})
 	@ResponseStatus(HttpStatus.BAD_REQUEST)
 	public final ResponseEntity<Object> handleAllExceptions(Exception ex) {
 		return new ResponseEntity<>(ExceptionCodes.getExceptionCode(ex.getMessage()), HttpStatus.BAD_REQUEST);
