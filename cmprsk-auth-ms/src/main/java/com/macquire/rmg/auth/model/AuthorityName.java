@@ -1,5 +1,5 @@
 package com.macquire.rmg.auth.model;
 
 public enum AuthorityName {
-    ROLE_USER, ROLE_ADMIN
+	ROLE_ANALYST, ROLE_ADMIN
 }

@@ -4,12 +4,8 @@ import java.io.IOException;
 import java.util.Arrays;
 import java.util.List;
 
-import javax.servlet.Filter;
 import javax.servlet.FilterChain;
-import javax.servlet.FilterConfig;
 import javax.servlet.ServletException;
-import javax.servlet.ServletRequest;
-import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -23,6 +19,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.web.authentication.WebAuthenticationDetailsSource;
+import org.springframework.web.filter.OncePerRequestFilter;
 
 import com.macquire.rmg.auth.security.JwtTokenUtil;
 
@@ -31,7 +28,7 @@ import com.macquire.rmg.auth.security.JwtTokenUtil;
  *
  * This filter is to verify and validate the token for all authenticated request.
  */
-public class AuthenticationTokenFilter implements Filter {
+public class AuthenticationTokenFilter extends OncePerRequestFilter {
 
 	private final Log logger = LogFactory.getLog(this.getClass());
 
@@ -46,17 +43,10 @@ public class AuthenticationTokenFilter implements Filter {
 
 	private List<String> excludedUrls;
 
-	@Override
-	public void init(FilterConfig filterConfig) throws ServletException {
-		excludedUrls = Arrays.asList("swagger-ui.html","api/auth","user/register","OPTIONS");
-	}
-
-	@Override
-	public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException, ServletException {
-		HttpServletResponse response = (HttpServletResponse) servletResponse;
-		HttpServletRequest request= (HttpServletRequest) servletRequest;
+	protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {	
 		String username = null;
 
+		excludedUrls = Arrays.asList("swagger-ui.html","api/auth","user/register","OPTIONS");
 		if(!(excludedUrls.stream().filter(url-> request.getRequestURL().toString().toLowerCase().contains(url.toLowerCase())).count() > 0) && !request.getMethod().equals("OPTIONS")) {
 			String authToken = request.getHeader(this.tokenHeader);
 			
@@ -89,9 +79,5 @@ public class AuthenticationTokenFilter implements Filter {
 		}
 
 		filterChain.doFilter(request, response);
-	}
-
-	@Override
-	public void destroy() {
 	}
 }
