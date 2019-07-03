@@ -46,7 +46,7 @@ public class AuthenticationTokenFilter extends OncePerRequestFilter {
 	protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {	
 		String username = null;
 
-		excludedUrls = Arrays.asList("swagger-ui.html","api/auth","user/register","OPTIONS");
+		excludedUrls = Arrays.asList("swagger-ui.html","api/auth","user/register");
 		if(!(excludedUrls.stream().filter(url-> request.getRequestURL().toString().toLowerCase().contains(url.toLowerCase())).count() > 0) && !request.getMethod().equals("OPTIONS")) {
 			String authToken = request.getHeader(this.tokenHeader);
 			

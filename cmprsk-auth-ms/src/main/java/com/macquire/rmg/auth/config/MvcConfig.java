@@ -14,12 +14,12 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 /**
  * @author pussingh5
  *
- * This is Swagger Configuration file.
+ * This is MVC Configuration file.
  */
 
 @Configuration
 @EnableSwagger2
-public class SwaggerConfig{
+public class MvcConfig{
 
     @Bean
     public Docket productApi() {

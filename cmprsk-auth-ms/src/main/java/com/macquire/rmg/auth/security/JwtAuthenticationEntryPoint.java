@@ -12,7 +12,7 @@ import java.io.Serializable;
 /**
  * @author pussingh5
  *
- * This is for navigating to unauthorized screen in case of any exceotion occured.
+ * This is for navigating to unauthorized screen in case of any exception occurred.
  */
 
 @Component

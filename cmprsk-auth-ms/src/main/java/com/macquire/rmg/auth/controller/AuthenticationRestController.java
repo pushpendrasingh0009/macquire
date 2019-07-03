@@ -25,11 +25,11 @@ import org.springframework.web.bind.annotation.RestController;
 import com.macquire.rmg.auth.aop.Loggable;
 import com.macquire.rmg.auth.exception.GenericResponse;
 import com.macquire.rmg.auth.model.AuthorityName;
+import com.macquire.rmg.auth.model.AuthenticationRequest;
+import com.macquire.rmg.auth.model.AuthenticationResponse;
 import com.macquire.rmg.auth.model.entity.User;
 import com.macquire.rmg.auth.repository.AuthorityRepository;
 import com.macquire.rmg.auth.repository.UserRepository;
-import com.macquire.rmg.auth.security.JwtAuthenticationRequest;
-import com.macquire.rmg.auth.security.JwtAuthenticationResponse;
 import com.macquire.rmg.auth.security.JwtTokenUtil;
 import com.macquire.rmg.auth.security.JwtUser;
 
@@ -67,7 +67,7 @@ public class AuthenticationRestController {
 
     @Loggable
     @RequestMapping(value = "${jwt.route.authentication.path}", method = RequestMethod.POST)
-    public ResponseEntity<?> createAuthenticationToken(@RequestBody JwtAuthenticationRequest authenticationRequest) throws AuthenticationException {
+    public ResponseEntity<?> createAuthenticationToken(@RequestBody AuthenticationRequest authenticationRequest) throws AuthenticationException {
     	logger.info("auth "+ authenticationRequest.getUsername()+ " pas: "+ authenticationRequest.getPassword());
         // Perform the security
         final Authentication authentication = authenticationManager.authenticate(
@@ -83,7 +83,7 @@ public class AuthenticationRestController {
         final String token = jwtTokenUtil.generateToken(userDetails, null);
 
         // Return the token
-        return ResponseEntity.ok(new JwtAuthenticationResponse(token));
+        return ResponseEntity.ok(new AuthenticationResponse(token));
     }
 
     @Loggable
@@ -95,7 +95,7 @@ public class AuthenticationRestController {
 
         if (jwtTokenUtil.canTokenBeRefreshed(token, user.getLastPasswordResetDate())) {
             String refreshedToken = jwtTokenUtil.refreshToken(token);
-            return ResponseEntity.ok(new JwtAuthenticationResponse(refreshedToken));
+            return ResponseEntity.ok(new AuthenticationResponse(refreshedToken));
         } else {
             return ResponseEntity.badRequest().body(null);
         }
