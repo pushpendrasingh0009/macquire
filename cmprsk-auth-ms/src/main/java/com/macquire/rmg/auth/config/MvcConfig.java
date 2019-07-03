@@ -2,6 +2,12 @@ package com.macquire.rmg.auth.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.client.BufferingClientHttpRequestFactory;
+import org.springframework.http.client.SimpleClientHttpRequestFactory;
+import org.springframework.web.client.RestTemplate;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
+
+import com.macquire.rmg.auth.exception.RestTemplateResponseErrorHandler;
 
 import springfox.documentation.builders.ApiInfoBuilder;
 import springfox.documentation.builders.PathSelectors;
@@ -19,7 +25,17 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
 @Configuration
 @EnableSwagger2
-public class MvcConfig{
+public class MvcConfig implements WebMvcConfigurer{
+	
+	@Bean
+	public RestTemplate restTemplate() {
+		
+		RestTemplate restTemplate = new RestTemplate(new BufferingClientHttpRequestFactory(new SimpleClientHttpRequestFactory()));
+		restTemplate.setErrorHandler(new RestTemplateResponseErrorHandler());
+		//restTemplate.setInterceptors(interceptors);
+		
+		return restTemplate;
+	}
 
     @Bean
     public Docket productApi() {
@@ -30,6 +46,7 @@ public class MvcConfig{
                 .build()
                 .apiInfo(metaData());
     }
+    
     private ApiInfo metaData() {
         
         return new ApiInfoBuilder().title("cmprsk-auth-ms")

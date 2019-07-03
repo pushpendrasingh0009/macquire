@@ -15,8 +15,8 @@ public class GenericExceptionHandler {
 		return new ResponseEntity<>(ExceptionCodes.getExceptionCode(ex.getMessage()), HttpStatus.UNAUTHORIZED);
 	}
 
-	@ExceptionHandler(UserNotFoundException.class)
-	public final ResponseEntity<Object> handleUserNotFoundException(UserNotFoundException ex) {
+	@ExceptionHandler(NotFoundException.class)
+	public final ResponseEntity<Object> handleUserNotFoundException(NotFoundException ex) {
 		return new ResponseEntity<>(ExceptionCodes.getExceptionCode(ex.getMessage()), HttpStatus.NOT_FOUND);
 	}
 

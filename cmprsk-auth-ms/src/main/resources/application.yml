@@ -23,6 +23,9 @@ spring:
       hibernate:
         dialect: org.hibernate.dialect.MySQL5Dialect
 
+authentication:
+  service:
+    url: http://www.mocky.io/v2/5d1c65b13400007200b5fd04
 
 jwt:
   header: Authorization
@@ -30,5 +33,5 @@ jwt:
   expiration: 604800
   route:
     authentication:
-      path: api/auth
-      refresh: api/refresh
+      create: api/create/token
+      refresh: api/refresh/token

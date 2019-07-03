@@ -2,11 +2,16 @@ package com.macquire.rmg.auth.model;
 
 import java.io.Serializable;
 
+import javax.validation.constraints.NotNull;
+
 public class  AuthenticationRequest implements Serializable {
 
     private static final long serialVersionUID = -8445943548965154778L;
 
+    @NotNull
     private String username;
+    
+    @NotNull
     private String password;
 
     public AuthenticationRequest() {
