@@ -1,4 +1,4 @@
-package com.macquire.rmg.auth.model.entity;
+package com.macquire.rmg.auth.entity;
 
 import java.util.List;
 

@@ -7,6 +7,6 @@ public interface UserAuthenticationService {
 
 	String createAuthenticationToken(AuthenticationRequest authenticationRequest);
 
-	String refreshAndGetAuthenticationToken(String authToken, JwtUser user);
+	String refreshAndGetAuthenticationToken(String authToken, JwtUser jwtUser);
 
 }

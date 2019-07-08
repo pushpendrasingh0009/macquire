@@ -61,9 +61,9 @@ public class UserAuthenticationServiceImpl implements UserAuthenticationService{
     }
     
     @Override
-    public String refreshAndGetAuthenticationToken(String  authToken, JwtUser user) {
+    public String refreshAndGetAuthenticationToken(String  authToken, JwtUser jwtUser) {
     	requireNonNull(authToken);
-    	requireNonNull(user);
+    	requireNonNull(jwtUser);
     	
     	String refreshedToken = jwtTokenUtil.refreshToken(authToken);
         return refreshedToken;

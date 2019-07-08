@@ -1,13 +1,11 @@
 package com.macquire.rmg.auth.security;
 
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
-
-import com.macquire.rmg.auth.model.entity.Role;
-import com.macquire.rmg.auth.model.entity.User;
-
 import java.util.List;
 import java.util.stream.Collectors;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import com.macquire.rmg.auth.entity.Role;
+import com.macquire.rmg.auth.entity.User;
 
 public final class JwtUserFactory {
 

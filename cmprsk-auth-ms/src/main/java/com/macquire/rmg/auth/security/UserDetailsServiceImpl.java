@@ -5,7 +5,8 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
-import com.macquire.rmg.auth.model.entity.User;
+
+import com.macquire.rmg.auth.entity.User;
 import com.macquire.rmg.auth.repository.UserRepository;
 
 
@@ -16,7 +17,7 @@ import com.macquire.rmg.auth.repository.UserRepository;
  */
 
 @Service
-public class JwtUserDetailsServiceImpl implements UserDetailsService {
+public class UserDetailsServiceImpl implements UserDetailsService {
 
     @Autowired
     private UserRepository userRepository;
