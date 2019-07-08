@@ -4,7 +4,7 @@ import java.util.Arrays;
 
 public enum ExceptionCodes {
 
-	AUTH001("Login Failed"), AUTH002("User Not Found"),AUTH003("Unknown Exception");
+	AUTH001("Login Failed"), AUTH002("User Not Found"), AUTH003("Unknown Exception");
 
 	String exceptionMessage;
 

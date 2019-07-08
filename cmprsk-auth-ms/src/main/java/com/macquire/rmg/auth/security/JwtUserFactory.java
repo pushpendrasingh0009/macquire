@@ -3,7 +3,7 @@ package com.macquire.rmg.auth.security;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 
-import com.macquire.rmg.auth.model.entity.Authority;
+import com.macquire.rmg.auth.model.entity.Role;
 import com.macquire.rmg.auth.model.entity.User;
 
 import java.util.List;
@@ -18,18 +18,13 @@ public final class JwtUserFactory {
         return new JwtUser(
                 user.getId(),
                 user.getUsername(),
-                user.getFirstname(),
-                user.getLastname(),
-                user.getEmail(),
-                user.getPassword(),
                 mapToGrantedAuthorities(user.getAuthorities()),
-                user.getEnabled(),
-                user.getLastPasswordResetDate()
+                user.getEnabled()
         );
     }
 
-    private static List<GrantedAuthority> mapToGrantedAuthorities(List<Authority> authorities) {
-        return authorities.stream()
+    private static List<GrantedAuthority> mapToGrantedAuthorities(List<Role> roles) {
+        return roles.stream()
                 .map(authority -> new SimpleGrantedAuthority(authority.getName().name()))
                 .collect(Collectors.toList());
     }

@@ -65,11 +65,7 @@ public class UserAuthenticationServiceImpl implements UserAuthenticationService{
     	requireNonNull(authToken);
     	requireNonNull(user);
     	
-        if (jwtTokenUtil.canTokenBeRefreshed(authToken, user.getLastPasswordResetDate())) {
-            String refreshedToken = jwtTokenUtil.refreshToken(authToken);
-            return refreshedToken;
-        } else {
-        	throw new AuthenticationException("Token is invalid.");
-        }
+    	String refreshedToken = jwtTokenUtil.refreshToken(authToken);
+        return refreshedToken;
     }
 }

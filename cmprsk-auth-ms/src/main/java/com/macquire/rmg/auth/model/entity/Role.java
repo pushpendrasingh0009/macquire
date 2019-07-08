@@ -7,19 +7,19 @@ import com.macquire.rmg.auth.model.AuthorityName;
 import java.util.List;
 
 @Entity
-@Table(name = "AUTHORITY")
-public class Authority {
+@Table(name = "ROLE")
+public class Role {
 
     @Id
     @Column(name = "ID")
-    @GeneratedValue(strategy=GenerationType.AUTO)
+    //@GeneratedValue(strategy=GenerationType.AUTO)
     private Long id;
 
     @Column(name = "NAME", length = 50, nullable = false)
     @Enumerated(EnumType.STRING)
     private AuthorityName name;
 
-    @ManyToMany(mappedBy = "authorities", fetch = FetchType.LAZY)
+    @ManyToMany(mappedBy = "roles", fetch = FetchType.LAZY)
     private List<User> users;
 
     public Long getId() {

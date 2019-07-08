@@ -61,7 +61,7 @@ public class UserAuthenticationRestController {
     }
 
     @Loggable
-    @RequestMapping(value = "${jwt.route.authentication.refresh}", method = RequestMethod.GET)
+    @RequestMapping(value = "${jwt.route.authentication.refresh}", method = RequestMethod.PUT)
     public ResponseEntity<?> refreshAndGetAuthenticationToken(HttpServletRequest request) {
     	
         String  authToken    = request.getHeader(tokenHeader);

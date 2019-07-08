@@ -1,6 +1,5 @@
 package com.macquire.rmg.auth.model.entity;
 
-import java.util.Date;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -12,51 +11,30 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
 import javax.validation.constraints.Size;
 
 @Entity
-@Table(name = "USER")
+@Table(name = "USERS")
 public class User {
 
     @Id
     @Column(name = "ID")
+    //@GeneratedValue(strategy=GenerationType.AUTO)
     private Long id;
 
     @Column(name = "USERNAME", length = 50, unique = true, nullable = false)
     @Size(min = 4, max = 50)
     private String username;
 
-    @Column(name = "PASSWORD", length = 100, nullable = false)
-    @Size(min = 4, max = 100)
-    private String password;
-
-    @Column(name = "FIRSTNAME", length = 50, nullable = false)
-    @Size(min = 4, max = 50)
-    private String firstname;
-
-    @Column(name = "LASTNAME", length = 50, nullable = false)
-    @Size(min = 4, max = 50)
-    private String lastname;
-
-    @Column(name = "EMAIL", length = 50, nullable = false)
-    @Size(min = 4, max = 50)
-    private String email;
-
     @Column(name = "ENABLED", nullable = false)
     private Boolean enabled;
 
-    @Column(name = "LASTPASSWORDRESETDATE", nullable = false)
-    @Temporal(TemporalType.TIMESTAMP)
-    private Date lastPasswordResetDate;
-
     @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinTable(
-            name = "USER_AUTHORITY",
-            joinColumns = {@JoinColumn(name = "USER_ID")},
-            inverseJoinColumns = {@JoinColumn(name = "AUTHORITY_ID")})
-    private List<Authority> authorities;
+            name = "USER_ROLE",
+            joinColumns = {@JoinColumn(name = "USERS_ID")},
+            inverseJoinColumns = {@JoinColumn(name = "ROLE_ID")})
+    private List<Role> roles;
 
     public Long getId() {
         return id;
@@ -74,38 +52,6 @@ public class User {
         this.username = username;
     }
 
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
-    public String getFirstname() {
-        return firstname;
-    }
-
-    public void setFirstname(String firstname) {
-        this.firstname = firstname;
-    }
-
-    public String getLastname() {
-        return lastname;
-    }
-
-    public void setLastname(String lastname) {
-        this.lastname = lastname;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
     public Boolean getEnabled() {
         return enabled;
     }
@@ -114,19 +60,12 @@ public class User {
         this.enabled = enabled;
     }
 
-    public List<Authority> getAuthorities() {
-        return authorities;
+    public List<Role> getAuthorities() {
+        return roles;
     }
 
-    public void setAuthorities(List<Authority> authorities) {
-        this.authorities = authorities;
+    public void setAuthorities(List<Role> roles) {
+        this.roles = roles;
     }
 
-    public Date getLastPasswordResetDate() {
-        return lastPasswordResetDate;
-    }
-
-    public void setLastPasswordResetDate(Date lastPasswordResetDate) {
-        this.lastPasswordResetDate = lastPasswordResetDate;
-    }
 }
