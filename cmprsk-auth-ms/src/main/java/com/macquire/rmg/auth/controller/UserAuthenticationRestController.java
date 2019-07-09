@@ -1,6 +1,7 @@
 package com.macquire.rmg.auth.controller;
 
 import javax.servlet.http.HttpServletRequest;
+
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,9 +13,11 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
+
 import com.macquire.rmg.auth.aop.Loggable;
 import com.macquire.rmg.auth.model.AuthenticationRequest;
 import com.macquire.rmg.auth.model.AuthenticationResponse;
+import com.macquire.rmg.auth.security.JwtTokenUtil;
 import com.macquire.rmg.auth.security.JwtUser;
 import com.macquire.rmg.auth.service.UserAuthenticationService;
 
@@ -30,17 +33,10 @@ public class UserAuthenticationRestController {
     @Value("${jwt.header}")
     private String tokenHeader;
     
-//    @Autowired
-//    private UserDetailsService userDetailsService;
-//    
-//    @Autowired
-//    private UserRepository userRepository;
-//    
-//    @Autowired
-//    private PasswordEncoder passwordEncoder;
-//    
-//    @Autowired
-//    private AuthorityRepository authorityRepository;
+
+    
+    @Autowired
+    private JwtTokenUtil jwtTokenUtil;
     
     @Autowired
     private UserAuthenticationService userAuthenticationService;
@@ -55,7 +51,7 @@ public class UserAuthenticationRestController {
     	logger.info("Generated token: "+authToken);
 
         // Return the token
-        return ResponseEntity.ok(new AuthenticationResponse(authToken));
+        return ResponseEntity.ok(new AuthenticationResponse(authToken, (JwtUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal(), jwtTokenUtil.getExpirationDateFromToken(authToken)));
     }
 
     @Loggable
@@ -69,15 +65,15 @@ public class UserAuthenticationRestController {
         logger.info("Received token: "+authToken+" to refresh.");
         
         JwtUser user = (JwtUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        return ResponseEntity.ok(new AuthenticationResponse(userAuthenticationService.refreshAndGetAuthenticationToken(authToken, user)));
+        return ResponseEntity.ok(new AuthenticationResponse(userAuthenticationService.refreshAndGetAuthenticationToken(authToken, user), jwtTokenUtil.getExpirationDateFromToken(authToken)));
     }
     
-    @Loggable
-    @RequestMapping(value = "api/user", method = RequestMethod.GET)
-    public JwtUser getUserDetails(HttpServletRequest request) {
-
-        return (JwtUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-    }
+//    @Loggable
+//    @RequestMapping(value = "api/user", method = RequestMethod.GET)
+//    public JwtUser getUserDetails(HttpServletRequest request) {
+//
+//        return (JwtUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+//    }
     
 //    @Loggable
 //    @RequestMapping(value = "api/user/register", method = RequestMethod.POST)

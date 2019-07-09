@@ -48,24 +48,28 @@ public class JwtUser implements UserDetails {
         return enabled;
     }
 
+    @JsonIgnore
 	@Override
 	public String getPassword() {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
+    @JsonIgnore
 	@Override
 	public boolean isAccountNonExpired() {
 		// TODO Auto-generated method stub
 		return false;
 	}
 
+    @JsonIgnore
 	@Override
 	public boolean isAccountNonLocked() {
 		// TODO Auto-generated method stub
 		return false;
 	}
 
+    @JsonIgnore
 	@Override
 	public boolean isCredentialsNonExpired() {
 		// TODO Auto-generated method stub
